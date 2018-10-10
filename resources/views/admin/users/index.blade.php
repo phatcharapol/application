@@ -1,8 +1,11 @@
 @extends('layouts.admin')
 
-
 @section('content')
 <h1>User</h1>
+
+@if (session()->has('msg_delete'))
+    <p class="bg-danger">{{session('msg_delete')}}</p>
+@endif
 <table class="table table-striped">
     <thead>
       <tr>
@@ -25,13 +28,14 @@
                     <td><a href="{{route("user.edit",$user->id)}}">{{$user->name}}</a></td>
                      {{-- Doesn't Work but i like this more than below --}}
                      {{-- <td><img style="width:50px;height:50px;" src="{{$user->photo ? $user->photo->file : "No Img"}}" alt="{{$user->photo->file}}"></td> --}}
-                     <td>
+                     <td>‌<img style="width:50px;height:50px;" src="{{$user->photo()->exists() ? $user->photo->file : 'https://via.placeholder.com/400x400'}}"></td>
+                     {{-- <td>
                             @if($user->photo)
                                 <img style="width:50px;height:50px;" src="{{$user->photo->file}}">
                             @else
                                 <img style="width:50px;height:50px;" src="https://via.placeholder.com/400x400">
                             @endif
-                    </td>
+                    </td> --}}
                     <td>{{$user->email}}</td>
                     <td>{{$user->role->name}}</td>
                     <td>{{$user->is_active == 1 ? 'Active' : 'Not Active' }}</td>

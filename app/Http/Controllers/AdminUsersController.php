@@ -8,6 +8,7 @@ use App\Role;
 use App\Photo;
 use App\Http\Requests\UsersRequest ;
 use App\Http\Requests\EditUserRequest ;
+use Session ;
 class AdminUsersController extends Controller
 {
     /**
@@ -50,7 +51,6 @@ class AdminUsersController extends Controller
             $photo = Photo::create(['file'=>$name]);
             $input['photo_id'] = $photo->id ;
         }
-        $input['password'] = bcrypt($request->password) ;
         User::create($input);
         return redirect('admin/user') ;
     }
@@ -90,8 +90,13 @@ class AdminUsersController extends Controller
     public function update(EditUserRequest $request, $id)
     {
         //
+        if(trim($request->password) == "null")
+        {
+            $request->except('password') ;
+        }else{
+            $input = $request->all() ;
+        }
         $user = User::findOrFail($id) ;
-        $input = $request->all() ;
         if($file=$request->file('file')){
             $name = $file->getClientOriginalName() ;
             $file->move('image',$name) ;
@@ -111,5 +116,11 @@ class AdminUsersController extends Controller
     public function destroy($id)
     {
         //
+        $user = User::findOrFail($id) ;
+        if(!empty($user->photo->file))
+        unlink(public_path().$user->photo->file) ;
+        $user->delete() ;
+        Session::flash('msg_delete','User has been deleted') ;
+        return redirect('admin/user') ;
     }
 }
