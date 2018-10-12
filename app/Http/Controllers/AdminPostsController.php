@@ -8,6 +8,7 @@ use App\Photo ;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\PostRequest;
 use App\Category;
+use App\Http\Requests\EditPostRequest;
 
 class AdminPostsController extends Controller
 {
@@ -46,17 +47,22 @@ class AdminPostsController extends Controller
         //
         $input  = $request->all() ;
         $user = Auth::user() ;
-
+        $input['user_id'] = $user->id ;
         if($file=$request->file('photo'))
         {
             $name=time().$file->getClientOriginalName() ;
             $file->move('image',$name) ;
             $photo = Photo::create(['file'=>$name]) ;
             $input['photo_id'] = $photo->id ;
-
         }
-
-        $user->posts()->create($input) ;
+        $post = new Post() ;
+        $post->user_id = $input['user_id'] ;
+        $post->category_id = $input['category_id'] ;
+        $post->photo_id = $input['photo_id'] ;
+        $post->title = $input['title'] ;
+        $post->body = $input['body'] ;
+        $post->save() ;
+        // $user->posts()->create($input) ;
         return redirect('admin/post') ;
 
     }
@@ -81,6 +87,9 @@ class AdminPostsController extends Controller
     public function edit($id)
     {
         //
+        $post=Post::findOrFail($id) ;
+        $categories=Category::pluck('name','id')->all() ;
+        return view('admin.posts.edit',compact('post','categories')) ;
     }
 
     /**
@@ -90,9 +99,11 @@ class AdminPostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EditPostRequest $request, $id)
     {
         //
+        $input=$request->all() ;
+        $post=Post::findOrFail($id) ;
     }
 
     /**
@@ -104,5 +115,7 @@ class AdminPostsController extends Controller
     public function destroy($id)
     {
         //
+        Post::findOrFail($id)->delete() ;
+        return redirect('admin/posts') ;
     }
 }
