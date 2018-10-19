@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post ;
 use App\Photo ;
+use App\Category;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\PostRequest;
-use App\Category;
 use App\Http\Requests\EditPostRequest;
 
 class AdminPostsController extends Controller
@@ -48,17 +48,20 @@ class AdminPostsController extends Controller
         $input  = $request->all() ;
         $user = Auth::user() ;
         $input['user_id'] = $user->id ;
+
+        $post = new Post() ;
+
         if($file=$request->file('photo'))
         {
             $name=time().$file->getClientOriginalName() ;
             $file->move('image',$name) ;
             $photo = Photo::create(['file'=>$name]) ;
             $input['photo_id'] = $photo->id ;
+            $post->photo_id = $input['photo_id'] ;
         }
-        $post = new Post() ;
+
         $post->user_id = $input['user_id'] ;
         $post->category_id = $input['category_id'] ;
-        $post->photo_id = $input['photo_id'] ;
         $post->title = $input['title'] ;
         $post->body = $input['body'] ;
         $post->save() ;
@@ -102,8 +105,9 @@ class AdminPostsController extends Controller
     public function update(EditPostRequest $request, $id)
     {
         //
-        $input=$request->all() ;
-        $post=Post::findOrFail($id) ;
+        dd($request->all()) ;
+        Post::findOrFail($id)->update($request->all()) ;
+        return redirect('admin/post') ;
     }
 
     /**
@@ -116,6 +120,6 @@ class AdminPostsController extends Controller
     {
         //
         Post::findOrFail($id)->delete() ;
-        return redirect('admin/posts') ;
+        return redirect('admin/post') ;
     }
 }

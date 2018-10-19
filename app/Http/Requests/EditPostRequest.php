@@ -13,7 +13,7 @@ class EditPostRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,8 +25,9 @@ class EditPostRequest extends FormRequest
     {
         return [
             //
-            'post'             => 'required|unique:post',
-            'body'             => 'required|min10|max:255',
+            'title'            => 'required|unique:post',
+            'category_id'      => 'required',
+            'body'             => 'required|min:10|max:255'
         ];
     }
 }
