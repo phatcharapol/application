@@ -3,13 +3,22 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Cviebrock\EloquentSluggable\Sluggable;
 class Post extends Model
 {
     //
+    use sluggable ;
     protected $table = 'posts' ;
-    protected $fillable = ['title','body'];
+    protected $fillable = ['title','body','slug'];
 
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
+    }
     public function user(){
         return $this->belongsTo('App\User') ;
     }

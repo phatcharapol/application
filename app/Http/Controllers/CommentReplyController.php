@@ -42,6 +42,7 @@ class CommentReplyController extends Controller
                  'is_active'=>$user->is_active,
                  'author'=>$user->name,
                  'email'=>$user->email,
+                 'photo'=>$user->photo->file,
                  'body'=>$request->body] ;
                  CommentReply::create($data) ;
 

@@ -14,6 +14,7 @@
             <th>Body</th>
             <th>Created</th>
             <th>Updated</th>
+            <th>View</th>
           </tr>
         </thead>
         <tbody>
@@ -27,6 +28,7 @@
                     <td>{{$post->body}}</td>
                     <td>{{$post->created_at->diffForHumans()}}</td>
                     <td>{{$post->updated_at->diffForHumans()}}</td>
+                    <td><a href="{{route('post',$post->slug)}}">View Post</a></td>
                   </tr>
             @endforeach
         </tbody>

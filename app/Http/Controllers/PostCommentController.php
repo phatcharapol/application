@@ -101,7 +101,7 @@ class PostCommentController extends Controller
 
     public function Post($id){
         $post=Post::findOrFail($id);
-        $comments=Comment::findOrFail($post->id) ;
+        $comments=Comment::find($post->id) ;
         return view('post',compact('post','comments')) ;
     }
 }
