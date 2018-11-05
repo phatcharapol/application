@@ -22,7 +22,7 @@ Route::get('admin',function(){
     return view('admin.index') ;
 });
 
-Route::get('post/{id}', 'PostCommentController@Post')->name('post');
+Route::get('post/{slug}', 'PostCommentController@Post')->name('post');
 
 Route::group(['middleware' => ['admin']], function () {
     Route::resource('admin/user', 'AdminUsersController');

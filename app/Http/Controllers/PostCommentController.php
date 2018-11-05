@@ -99,8 +99,9 @@ class PostCommentController extends Controller
         //
     }
 
-    public function Post($id){
-        $post=Post::findOrFail($id);
+    public function Post($slug){
+        $post=Post::where('slug',$slug)
+                    ->firstOrFail();
         $comments=Comment::find($post->id) ;
         return view('post',compact('post','comments')) ;
     }
