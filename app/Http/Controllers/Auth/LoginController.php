@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Symfony\Component\HttpFoundation\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -26,7 +27,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/admin';
+    // protected $redirectTo = '/admin';
 
     /**
      * Create a new controller instance.
@@ -36,6 +37,27 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function redirectTo(){
+
+        // User role
+        $role = Auth::user()->role->id;
+
+        // Check user role
+        switch ($role) {
+            // Administrators
+            case '1':
+                    return '/admin';
+                break;
+            // User
+            case '2':
+                    return '/home';
+                break;
+            default:
+                    return '/login';
+                break;
+        }
     }
 
 }
