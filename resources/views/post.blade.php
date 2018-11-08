@@ -19,12 +19,12 @@
                 <hr>
 
                 <!-- Preview Image -->
-                <img class="img-responsive" src="{{$post->photo->file}}" alt="{{$post->photo->file}}">
+                <img class="img-responsive" src="{{$post->photo ? $post->photo->file : $post->placeHolder() }}" alt="{{$post->photo->file}}">
 
                 <hr>
 
                 <!-- Post Content -->
-                <p class="lead">{{$post->body}}</p>
+                <p class="lead">{!!$post->body!!}</p>
 
                 <hr>
 

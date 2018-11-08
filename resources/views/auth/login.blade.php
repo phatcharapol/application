@@ -1,12 +1,16 @@
-@extends('layouts.app')
+@extends('layouts.blog-home')
 
 @section('content')
+
+
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="row">
+        <div class="col-md-2"></div>
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
-                <div class="card-body">
+
+                <div class="jumbotron">
+                    <h2>{{ __('Login') }}</h2>
+
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
@@ -39,7 +43,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
+                            <div class="col-md-6 offset-md-2">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
@@ -63,8 +67,9 @@
                         </div>
                     </form>
                 </div>
-            </div>
+
         </div>
+        <div class="col-md-2"></div>
     </div>
 </div>
 @endsection

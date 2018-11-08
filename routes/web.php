@@ -11,18 +11,16 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index')->name('home');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+
 Route::get('post/{slug}', 'PostCommentController@Post')->name('post');
 
 Route::group(['middleware' => ['admin']], function () {
 
-    Route::get('/admin', 'AdminController@index') ;
+    Route::get('/admin', 'AdminController@index')->name('admin') ;
     Route::resource('admin/user', 'AdminUsersController');
     Route::resource('admin/post', 'AdminPostsController');
     Route::resource('admin/category', 'AdminCategoryController');

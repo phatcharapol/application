@@ -7,6 +7,7 @@ use App\Post ;
 use App\Comment;
 use Illuminate\Support\Facades\Auth;
 use App\CommentReply;
+use App\Category;
 
 
 class PostCommentController extends Controller
@@ -103,6 +104,7 @@ class PostCommentController extends Controller
         $post=Post::where('slug',$slug)
                     ->firstOrFail();
         $comments=Comment::find($post->id) ;
-        return view('post',compact('post','comments')) ;
+        $categories=Category::all() ;
+        return view('post',compact('post','comments','categories')) ;
     }
 }

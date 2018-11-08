@@ -20,7 +20,7 @@ class AdminPostsController extends Controller
     public function index()
     {
         //
-        $posts = Post::paginate(2) ;
+        $posts = Post::paginate(4) ;
         return view('admin.posts.index',compact('posts')) ;
     }
 
@@ -105,7 +105,6 @@ class AdminPostsController extends Controller
     public function update(EditPostRequest $request, $id)
     {
         //
-        dd($request->all()) ;
         Post::findOrFail($id)->update($request->all()) ;
         return redirect('admin/post') ;
     }

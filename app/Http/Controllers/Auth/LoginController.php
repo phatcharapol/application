@@ -43,7 +43,6 @@ class LoginController extends Controller
 
         // User role
         $role = Auth::user()->role->id;
-
         // Check user role
         switch ($role) {
             // Administrators
@@ -52,12 +51,13 @@ class LoginController extends Controller
                 break;
             // User
             case '2':
-                    return '/home';
+                    return '/';
                 break;
             default:
                     return '/login';
                 break;
         }
+
     }
 
 }

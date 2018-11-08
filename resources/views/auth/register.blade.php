@@ -1,13 +1,14 @@
-@extends('layouts.app')
+@extends('layouts.blog-home')
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
+        <div class="col-md-2"></div>
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
 
-                <div class="card-body">
+
+
+                <div class="jumbotron">
+                        <h2>{{ __('Register') }}</h2>
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
@@ -70,8 +71,8 @@
                         </div>
                     </form>
                 </div>
-            </div>
+
         </div>
-    </div>
+        <div class="col-md-2"></div>
 </div>
 @endsection
