@@ -105,6 +105,6 @@ class PostCommentController extends Controller
                     ->firstOrFail();
         $comments=Comment::find($post->id) ;
         $categories=Category::all() ;
-        return view('post',compact('post','comments','categories')) ;
+        return view('front.post',compact('post','comments','categories')) ;
     }
 }

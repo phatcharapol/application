@@ -24,7 +24,7 @@
                 </p>
                 <p><span class="glyphicon glyphicon-time"></span> {{$post->created_at->diffForHumans()}}</p>
                 <hr>
-                <img class="img-responsive" src="{{$post->photo->file}}" alt="">
+                <img class="img-responsive" src="{{$post->photo()->exists() ? $post->photo->file : $post->placeHolder()}}" alt="">
                 <hr>
                 <p>{{str_limit($post->body,100)}}</p>
                 <a class="btn btn-primary" href="{{route('post',$post->slug)}}">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>

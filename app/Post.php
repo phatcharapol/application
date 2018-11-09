@@ -35,6 +35,6 @@ class Post extends Model
         return $this->hasMany('App\Comment') ;
     }
     public function placeHolder(){
-        return 'https://via.placeholder.com/400x400' ;
+        return 'https://via.placeholder.com/700x400' ;
     }
 }

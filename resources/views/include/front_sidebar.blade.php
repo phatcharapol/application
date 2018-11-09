@@ -19,8 +19,6 @@
         <div class="well">
             <h4>Blog Categories</h4>
             @if($categories)
-
-
                 <div class="row">
                     <div class="col-lg-6">
                         <ul class="list-unstyled">
